@@ -6,7 +6,8 @@ html, body {
     padding : 0;
 }
 
-#renderCanvas {
+
+#canvas_window {
     width   : 100%;
     height  : 100%;
     touch-action: none;

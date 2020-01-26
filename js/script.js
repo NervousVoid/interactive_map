@@ -1,6 +1,8 @@
 window.addEventListener('DOMContentLoaded', function(){
     // get the canvas DOM element
     var canvas = document.getElementById('renderCanvas');
+    //canvas.height = 100;
+    //canvas.width = 100;
 
     // load the 3D engine
     var engine = new BABYLON.Engine(canvas, true);
@@ -10,19 +12,25 @@ window.addEventListener('DOMContentLoaded', function(){
         var scene = new BABYLON.Scene(engine);
 
         //Adding a light
-        var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 0, 0), scene);
+        var light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 0, -10), scene);
+        light.intensity = 3;
 
-        //Adding an Arc Rotate Camera
-        var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, BABYLON.Vector3.Zero(), scene);
-        camera.attachControl(canvas, false);
+        var camera = new BABYLON.ArcRotateCamera("Camera", 2 * Math.PI / 2, 3 * Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
 
+        camera.attachControl(canvas, true);
+
+        camera.lowerRadiusLimit = 15;
+        camera.upperRadiusLimit = 35;
+
+        camera.useBouncingBehavior = true;
         var assetsManager = new BABYLON.AssetsManager(scene);
-        var meshTask = assetsManager.addMeshTask("skull task", "", "./earth/", "scene.gltf");
-        //meshTask.scale = new BABYLON.Vector3(5, 5, 5);
-
+        var meshTask = assetsManager.addMeshTask("skull task", "", "./earth/", "scene_final.glb");
+        //var box = BABYLON.Mesh.CreateBox("box", 5.0, scene);
         meshTask.onSuccess = function (task) {
-            task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
+            task.loadedMeshes[0].position = new BABYLON.Vector3.Zero();
+            //alert(task.loadedMeshes[0].position);
         };
+
 
         // Move the light with the camera
         scene.registerBeforeRender(function () {
@@ -38,7 +46,7 @@ window.addEventListener('DOMContentLoaded', function(){
         assetsManager.load();
 
         return scene;
-    }
+    };
 
     // call the createScene function
     var scene = createScene();
