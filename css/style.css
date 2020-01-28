@@ -1,14 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
 html, body {
     overflow: hidden;
     width   : 100%;
     height  : 100%;
     margin  : 0;
     padding : 0;
+    background-color: black;
+    user-select: none;
 }
 
 
 #renderCanvas {
-    width   : 100%;
+    position: absolute;
+    display: inline-block;
+    left: 30%;
+    width   : 70%;
     height  : 100%;
     touch-action: none;
+    outline: none;
 }
+
+#infoWindow {
+    display: inline-block;
+    margin: 0;
+    border: white 3px solid;
+    width: 29%;
+    height: 99%;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 1vw;
+    color: white;
+    text-align: center;
+}
+
+#reminder {
+    width: 100px;
+    height: 100px;
+}
+
+/*
+#infoWindow {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 10%;
+    height: 30%;
+    border: #0095FFFF 3px dashed;
+} */

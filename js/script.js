@@ -1,41 +1,90 @@
+/* Creates a sphere but doesn`t add it to scene (or the scene doesn`t render it)
+class Pin {
+    constructor(position, wiki_url, scene) {
+        this.position = position;
+        this.url = wiki_url;
+        this.d = 0.5;
+        this.scene = scene;
+
+    }
+
+    draw() {
+        this.sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: this.d}, this.scene);
+        this.sphere.material = new BABYLON.StandardMaterial("pin_mat", this.scene);
+        this.sphere.position = new BABYLON.Vector3(this.position);
+        this.sphere.material.diffuseColor = BABYLON.Color3.Red();
+    }
+}
+//let a = new Pin(new BABYLON.Vector3(0, 10, 0), 'abc', scene);
+//a.draw();
+*/
+
+function show_info(){
+
+}
+
+
+
 window.addEventListener('DOMContentLoaded', function () {
     let canvas = document.getElementById('renderCanvas');
     let engine = new BABYLON.Engine(canvas, true);
 
     let createScene = function () {
+
+
+
         let scene = new BABYLON.Scene(engine);
-        let light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 0, -10), scene);
+        let light1 = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 0, -20), scene);
+        let light2 = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, 0, 20), scene);
         let camera = new BABYLON.ArcRotateCamera("Camera", 2 * Math.PI / 2, 3 * Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
         let assetsManager = new BABYLON.AssetsManager(scene);
         let meshTask = assetsManager.addMeshTask("earth", "", "./earth/", "scene_final.glb");
+
+        scene.clearColor = new BABYLON.Color3.Black();
+
+        // Pin creation example
         let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
+        sphere.material = new BABYLON.StandardMaterial("pin_mat", scene);
+        sphere.position = new BABYLON.Vector3(0, 7, 7.2);
+
+        let sphere2 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
+        sphere2.material = new BABYLON.StandardMaterial("pin_mat", scene);
+        sphere2.position = new BABYLON.Vector3(0, 10, 0);
+
+        //sphere.material.diffuseColor = BABYLON.Color4.FromHexString("#0095FFFF");
+        //sphere.material.diffuseColor = BABYLON.Color3.White();
+
 
         camera.attachControl(canvas, true);
         camera.useBouncingBehavior = true;
+        camera.wheelPrecision = 10;
 
-        light.intensity = 3;
+        light1.intensity = 1;
+        light2.intensity = 1;
         camera.lowerRadiusLimit = 15;
         camera.upperRadiusLimit = 35;
-        sphere.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        sphere.position = new BABYLON.Vector3(0, 10, 0);
 
         let selected = null;
         scene.onPointerObservable.add(function (evt) {
             if (selected) {
-                selected.material.diffuseColor = BABYLON.Color3.Gray();
+                //selected.material.diffuseColor = BABYLON.Color4.FromHexString("#0095FFFF");
+                selected.material.diffuseColor = BABYLON.Color3.White();
                 selected = null;
             }
             if (evt.pickInfo.hit && evt.pickInfo.pickedMesh && evt.event.button === 0) {
                 selected = evt.pickInfo.pickedMesh;
-                evt.pickInfo.pickedMesh.material.diffuseColor = BABYLON.Color3.Red();
+                //evt.pickInfo.pickedMesh.material.diffuseColor = BABYLON.Color4.FromHexString("#9F33F222");
+                evt.pickInfo.pickedMesh.material.diffuseColor = BABYLON.Color3.Black();
+                if (evt.pickInfo.pickedMesh.name == 'sphere') {
+                    //alert('Sphere '+evt.pickInfo.pickedMesh.name+' was picked!');
+                }
+
             }
         }, BABYLON.PointerEventTypes.POINTERUP);
 
         meshTask.onSuccess = (task) => task.loadedMeshes[0].position = new BABYLON.Vector3.Zero();
 
-        scene.registerBeforeRender(function () {
-            light.position = camera.position;
-        });
+
 
         assetsManager.onFinish = (tasks) => {
             engine.runRenderLoop(function () {
