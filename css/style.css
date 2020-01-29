@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Didact+Gothic&display=swap');
 
 html, body {
     overflow: hidden;
@@ -22,15 +22,42 @@ html, body {
 }
 
 #infoWindow {
+    transition: all 1s;
     display: inline-block;
     margin: 0;
-    border: white 3px solid;
+    border-right: white 3px solid;
+    position: absolute;
     width: 29%;
-    height: 99%;
-    font-family: 'Josefin Sans', sans-serif;
+    height: 100%;
+    font-family: 'Didact Gothic', sans-serif;
     font-size: 1vw;
     color: white;
     text-align: center;
+    z-index: 0;
+}
+
+#infoBlock {
+    transition: all 1s;
+    position: absolute;
+    left: -1000px;
+    display: inline-block;
+    margin: 0;
+    border-right: yellow 3px solid;
+    width: 29%;
+    height: 100%;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 1vw;
+    color: white;
+    text-align: center;
+    z-index: 10;
+}
+
+.closed {
+    transform: translate(-1000px);
+}
+
+.opened {
+    transform: translate(1000px);
 }
 
 #reminder {
