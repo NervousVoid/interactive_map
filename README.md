@@ -1,4 +1,4 @@
-# interactive_map
+# Interactive Map of Man-made Disasters
 #### By @nervous_void
 ## How to use?
 #### Not as easy as you thought
