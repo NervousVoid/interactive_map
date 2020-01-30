@@ -54,6 +54,7 @@ function show_info(scene){
             selected = null;
         }
         if (evt.pickInfo.hit && evt.pickInfo.pickedMesh && evt.event.button === 0) {
+            console.log(evt.pickInfo.pickPoint);
             selected = evt.pickInfo.pickedMesh;
             //evt.pickInfo.pickedMesh.material.diffuseColor = BABYLON.Color3.Black();
             if (evt.pickInfo.pickedMesh.name.includes('sphere')) {
@@ -169,7 +170,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
         let sphere1 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
         sphere1.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        sphere1.position = new BABYLON.Vector3(0, 10, 0);
+        sphere1.position = new BABYLON.Vector3(-5, 6, -6.3);
         scene.meshes[scene.meshes.length-1].name = 'sphere1';
 
         let sphere2 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
@@ -184,7 +185,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
         let sphere4 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
         sphere4.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        sphere4.position = new BABYLON.Vector3(-5, 7, 5.2);
+        sphere4.position = new BABYLON.Vector3(-4.3, 8.2, 3.7);
         scene.meshes[scene.meshes.length-1].name = 'sphere4';
 
         //sphere.material.diffuseColor = BABYLON.Color4.FromHexString("#0095FFFF");
