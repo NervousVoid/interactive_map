@@ -36,6 +36,34 @@ html, body {
     z-index: 0;
 }
 
+p {
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: left;
+}
+
+h1  {
+    margin: 0;
+    margin-top: 5%;
+}
+
+h4 {
+    padding-top: 20%;
+    padding-left: 10%;
+    padding-right: 10%;
+    font-size: x-large;
+    text-align: left;
+}
+
+#articleWikiUrl {
+    font-family: 'Didact Gothic', sans-serif;
+    color: white;
+    padding: 2%;
+    margin: 10%;
+    border: white 3px solid;
+    text-decoration: none;
+}
+
 #infoBlock {
     transition: all 1s;
     position: absolute;
@@ -50,6 +78,7 @@ html, body {
     color: white;
     text-align: center;
     z-index: 10;
+
 }
 
 .closed {
