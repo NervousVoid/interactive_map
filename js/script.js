@@ -17,15 +17,20 @@ var getJSON = function(url, callback) {
     xhr.send();
 };
 */
-/*
-console.log(getJSON(urlwiki,
-    function(err, data) {
-        if (err !== null) {
-            alert('Something went wrong: ' + err);
-        } else {
-            alert('Your query count: ' + data.query.count);
+
+
+function loadJSON(callback) {
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'info/articles.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
         }
-    })); */
+    };
+    xobj.send(null);
+}
 
 function show_info(scene){
     let selected = null;
@@ -83,6 +88,21 @@ class Pin {
 //a.draw();
 */
 
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+        var status = xhr.status;
+        if (status === 200) {
+            callback(null, xhr.response);
+        } else {
+            callback(status, xhr.response);
+        }
+    };
+    xhr.send();
+};
+
 window.addEventListener('DOMContentLoaded', function () {
     let canvas = document.getElementById('renderCanvas');
     let engine = new BABYLON.Engine(canvas, true);
@@ -95,6 +115,12 @@ window.addEventListener('DOMContentLoaded', function () {
         let assetsManager = new BABYLON.AssetsManager(scene);
         let meshTask = assetsManager.addMeshTask("earth", "", "./earth/", "scene_final.glb");
         scene.clearColor = new BABYLON.Color3.Black();
+
+        loadJSON(function(response) {
+            // Parse JSON string into object
+            let parsed_articles = JSON.parse(response);
+            console.log(parsed_articles);
+        });
 
         /*
         for (let i = 0; i < 5; i++){
@@ -111,11 +137,10 @@ window.addEventListener('DOMContentLoaded', function () {
         sphere.material = new BABYLON.StandardMaterial("pin_mat", scene);
         sphere.position = new BABYLON.Vector3(0, 7, 7.2);
         scene.meshes[scene.meshes.length-1].name = 'sphere1';
-
-        //let sphere2 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
-        //sphere2.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        //sphere2.position = new BABYLON.Vector3(0, 10, 0);
-        //scene.meshes[scene.meshes.length-1].name = 'sphere2';
+        let sphere2 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
+        sphere2.material = new BABYLON.StandardMaterial("pin_mat", scene);
+        sphere2.position = new BABYLON.Vector3(0, 10, 0);
+        scene.meshes[scene.meshes.length-1].name = 'sphere2';
 
         //sphere.material.diffuseColor = BABYLON.Color4.FromHexString("#0095FFFF");
         //sphere.material.diffuseColor = BABYLON.Color3.White();
