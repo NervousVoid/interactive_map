@@ -12,6 +12,7 @@ html, body {
 
 
 #renderCanvas {
+    font-size: 50em;
     position: absolute;
     display: inline-block;
     left: 30%;
@@ -40,6 +41,7 @@ p {
     padding-left: 10%;
     padding-right: 10%;
     text-align: left;
+    font-size: 1em;
 }
 
 h1  {
@@ -51,7 +53,7 @@ h4 {
     padding-top: 20%;
     padding-left: 10%;
     padding-right: 10%;
-    font-size: x-large;
+    font-size: 1.3em;
     text-align: left;
 }
 
