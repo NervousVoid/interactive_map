@@ -1,31 +1,9 @@
-/*
-// let url = 'https://ru.wikipedia.org/w/index.php?title=Взрыв%20нефтяной%20платформы%20Deepwater%20Horizon&action=info'
-//decodeURIComponent(JSON.parse(url));
-let urlwiki = 'https://ru.wikipedia.org/w/index.php?title=Взрыв%20нефтяной%20платформы%20Deepwater%20Horizon&action=info';
-var getJSON = function(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-        var status = xhr.status;
-        if (status === 200) {
-            callback(null, xhr.response);
-        } else {
-            callback(status, xhr.response);
-        }
-    };
-    xhr.send();
-};
-*/
-
-
 function loadJSON(callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'info/articles.json', true); // Replace 'my_data' with the path to your file
+    xobj.open('GET', 'info/articles.json', true);
     xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == "200") {
-            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
             callback(xobj.responseText);
         }
     };
@@ -33,12 +11,11 @@ function loadJSON(callback) {
 }
 
 let parsed_articles;
-
-loadJSON(function(response) {
-     parsed_articles = JSON.parse(response);
+loadJSON(function (response) {
+    parsed_articles = JSON.parse(response);
 });
 
-function show_info(scene){
+function show_info(scene) {
     let selected = null;
     let infoBlock = document.getElementById('infoBlock');
     let mainBlock = document.getElementById('infoWindow');
@@ -96,8 +73,6 @@ function show_info(scene){
                     infoBlock.classList.add('opened');
 
                 }, 350);
-
-                //console.log(evt.pickInfo.pickedMesh.uniqueId);
             }
         }
     }, BABYLON.PointerEventTypes.POINTERUP);
@@ -106,30 +81,6 @@ function show_info(scene){
 function rand(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
-
-/*
-//Creates a sphere but doesn`t add it to scene (or the scene doesn`t render it)
-class Pin {
-    constructor(position, scene) {
-        this.position = position;
-        //this.url = wiki_url;
-        this.d = 0.5;
-        this.scene = scene;
-        this.sphere = 0;
-    }
-
-    draw() {
-        this.sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: this.d}, this.scene);
-        this.sphere.material = new BABYLON.StandardMaterial("pin_mat", this.scene);
-        this.sphere.position = new BABYLON.Vector3(this.position);
-        this.sphere.material.diffuseColor = BABYLON.Color3.Red();
-    }
-}
-//let a = new Pin(new BABYLON.Vector3(0, 10, 0), 'abc', scene);
-//a.draw();
-*/
-
-
 
 window.addEventListener('DOMContentLoaded', function () {
     let canvas = document.getElementById('renderCanvas');
@@ -144,53 +95,18 @@ window.addEventListener('DOMContentLoaded', function () {
         let meshTask = assetsManager.addMeshTask("earth", "", "./earth/", "scene_final.glb");
         scene.clearColor = new BABYLON.Color3.Black();
 
-        /*
-        for (let i = 0; i < 5; i++){
-            let sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
-            sphere.material = new BABYLON.StandardMaterial("pin_mat", scene);
-            sphere.position = new BABYLON.Vector3(rand(10), rand(10), rand(10));
-            scene.meshes[scene.meshes.length-1].name = 'sphere' + i.toString();
-        }
-        console.log(scene.meshes);
-        */
-
-        // Pin creation example
         let pins = [];
-        for (let i = 0; i < 5; i++){
+        for (let i = 0; i < 5; i++) {
             pins[i] = BABYLON.SphereBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
             pins[i].material = new BABYLON.StandardMaterial("pin_mat", scene);
-            pins[i].position = new BABYLON.Vector3(0, 7, 7.2);
-            scene.meshes[scene.meshes.length-1].name = 'sphere' + i.toString();
+            scene.meshes[scene.meshes.length - 1].name = 'sphere' + i.toString();
         }
 
-        //let sphere0 = BABYLON.SphereBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
-        //sphere0.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        //sphere0.position = new BABYLON.Vector3(0, 7, 7.2);
-        //scene.meshes[scene.meshes.length-1].name = 'sphere0';
-
-        let sphere1 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
-        sphere1.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        sphere1.position = new BABYLON.Vector3(-5, 6, -6.3);
-        scene.meshes[scene.meshes.length-1].name = 'sphere1';
-
-        let sphere2 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
-        sphere2.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        sphere2.position = new BABYLON.Vector3(0, 5, 8.8);
-        scene.meshes[scene.meshes.length-1].name = 'sphere2';
-
-        let sphere3 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
-        sphere3.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        sphere3.position = new BABYLON.Vector3(-8.8, 5, 0);
-        scene.meshes[scene.meshes.length-1].name = 'sphere3';
-
-        let sphere4 = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 0.5}, scene);
-        sphere4.material = new BABYLON.StandardMaterial("pin_mat", scene);
-        sphere4.position = new BABYLON.Vector3(-4.3, 8.2, 3.7);
-        scene.meshes[scene.meshes.length-1].name = 'sphere4';
-
-        //sphere.material.diffuseColor = BABYLON.Color4.FromHexString("#0095FFFF");
-        //sphere.material.diffuseColor = BABYLON.Color3.White();
-
+        pins[0].position = new BABYLON.Vector3(0, 7, 7.2);
+        pins[1].position = new BABYLON.Vector3(-5, 6, -6.3);
+        pins[2].position = new BABYLON.Vector3(0, 5, 8.8);
+        pins[3].position = new BABYLON.Vector3(-8.8, 5, 0);
+        pins[4].position = new BABYLON.Vector3(-4.3, 8.2, 3.7);
 
         camera.attachControl(canvas, true);
         camera.useBouncingBehavior = true;
