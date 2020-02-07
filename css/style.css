@@ -21,10 +21,28 @@ html, body {
     outline: none;
 }
 
+#legend {
+    transition: all 1s;
+    display: inline-block;
+    margin: 0;
+    border: white 3px solid;
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    right: 20px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 1vw;
+    color: white;
+    text-align: center;
+    z-index: 10;
+}
+
+
 #infoWindow {
     transition: all 1s;
     display: inline-block;
     margin: 0;
+    left: -1000px;
     border-right: white 3px solid;
     position: absolute;
     width: 29%;
@@ -54,13 +72,58 @@ h4 {
     padding-right: 10%;
     font-size: 1.3em;
     text-align: left;
+    display: inline-block;
+}
+
+#showLegend {
+    display: block;
+    background-color: black;
+    font-family: 'Didact Gothic', sans-serif;
+    color: white;
+    padding: 2%;
+    margin: 5% 5% 5% 35%;
+    border: white 3px solid;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.my-legend .legend-title {
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
+    padding: 0 10% 0 10%;
+    font-size: 1.3em;
+}
+.my-legend .legend-scale ul {
+    margin: 0;
+    float: left;
+    list-style: none;
+    padding: 5% 15% 30% 30%;
+}
+.my-legend .legend-scale ul li {
+    list-style: none;
+    margin-left: 0;
+    margin-bottom: 10%;
+    font-size: 1.3em;
+    text-align: left;
+    width: 150%;
+}
+.my-legend ul.legend-labels li span {
+
+    display: block;
+    float: left;
+    height: 30px;
+    width: 60px;
+    margin-right: 10%;
+    margin-left: 0;
+    padding: 0;
 }
 
 #articleWikiUrl {
     font-family: 'Didact Gothic', sans-serif;
     color: white;
     padding: 2%;
-    margin: 10%;
+    margin: 5%;
     border: white 3px solid;
     text-decoration: none;
 }
@@ -71,7 +134,7 @@ h4 {
     left: -1000px;
     display: inline-block;
     margin: 0;
-    border-right: yellow 3px solid;
+    border-right: white 3px solid;
     width: 29%;
     height: 100%;
     font-family: 'Didact Gothic', sans-serif;

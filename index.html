@@ -16,13 +16,23 @@
         <p id="articleP"></p>
         <br>
         <a id="articleWikiUrl">Подробнее на Википедии</a>
+        <button id="showLegend" onclick="show_legend()">Показать легенду</button>
     </div>
     <canvas id="renderCanvas" touch-action="none"></canvas>
     <div id="infoWindow">
         <h1>Интерактивная карта техногенных катастроф</h1>
-        <h4>
-               История нашей планеты началась 4,5 миллиарда лет назад. Многовековая эволюция привела нас к тому, что мы сейчас имеем, но вместе с безграничными возможностями на нас ложится большая ответственность за Землю. C каждым днём количество техногенных катастроф на нашей планете растет, и именно мы ответственны за состояние и будущее Земли. <br><br>Создавая эту карту, мы хотели показать, как сильно человечество уже навердило нашей планете, и что нужно остановиться.
-        </h4>
+        <div class='my-legend'>
+            <div class='legend-title'><h4>Типы катастроф</h4></div>
+            <div class='legend-scale'>
+                <ul class='legend-labels'>
+                    <li><span style="background:#64FF77;"></span>Транспортная</li>
+                    <li><span style="background:#73E1FF;"></span>Водная</li>
+                    <li><span style="background:#EFFF50;"></span>Ядерная</li>
+                    <li><span style="background:#FF5B37;"></span>Взрыв</li>
+                    <li><span style="background:#F77EFF;"></span>Нефтяная</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <script src="js/script.js"></script>
 </body>
